@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>KRPC::Services::Core</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='class' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>
+          <span class='type'>class</span>
+          KRPC::Services::Core
+        </h1>
+        <ol class='paths'>
+          <li>
+            <a target="docwin" href="../../../files/lib/krpc/service_rb.html">lib/krpc/service.rb</a>
+          </li>
+        </ol>
+        <div class='parent'>
+          Superclass:
+          <strong><a target="docwin" href="ServiceBase.html">ServiceBase</a></strong>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <p>Hardcoded version of <code>krpc</code> service - The core kRPC service,
+            e.g. for querying for the available services.</p>
+          </div>
+          <div id='method-list'>
+            <h2>Methods</h2>
+            <h3>Public Class</h3>
+            <ol>
+              <li><a target="docwin" href="#method-c-new">new</a></li>
+            </ol>
+          </div>
+          <div id='context'>
+            <div id='includes'>
+              <h2>Included modules</h2>
+              <ol>
+                <li><a target="docwin" href="../Gen/RPCMethodGenerator.html">Gen::RPCMethodGenerator</a></li>
+              </ol>
+            </div>
+          </div>
+          <div id='section'>
+            <div id='methods'>
+              <h2>Public Class methods</h2>
+              <div class='method public-class' id='method-method-c-new'>
+                <a name='method-c-new'></a>
+                <div class='synopsis'>
+                  <span class='name'>new</span>
+                  <span class='arguments'>(client)</span>
+                </div>
+                <div class='description'>
+                  
+                </div>
+                <div class='source'>
+                  <a class='source-toggle' href='#' onclick="toggleCode('method-c-new-source'); return false">
+                    [show source]
+                  </a>
+                  <pre id='method-c-new-source'><span class="ruby-comment"># File lib/krpc/service.rb, line 63</span>&#x000A;<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">client</span>)&#x000A;  <span class="ruby-keyword">super</span>(<span class="ruby-identifier">client</span>)&#x000A;  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:get_status</span>&#x000A;    <span class="ruby-comment"># Generate enumerations</span>&#x000A;    <span class="ruby-constant">TypeStore</span>[<span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:ENUMERATION</span>, <span class="ruby-identifier">service</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Core&#39;</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;GameScene&#39;</span>)].<span class="ruby-identifier">set_values</span>(&#x000A;      <span class="ruby-constant">Encoder</span>.<span class="ruby-identifier">hash_to_enumeration_values</span>(&#x000A;        <span class="ruby-identifier">space_center</span><span class="ruby-operator">:</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">flight</span><span class="ruby-operator">:</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">tracking_station</span><span class="ruby-operator">:</span> <span class="ruby-value">2</span>, <span class="ruby-identifier">editor_vab</span><span class="ruby-operator">:</span> <span class="ruby-value">3</span>, <span class="ruby-identifier">editor_sph</span><span class="ruby-operator">:</span> <span class="ruby-value">4</span>&#x000A;      )&#x000A;    )&#x000A;&#x000A;    <span class="ruby-comment"># Generate procedures</span>&#x000A;    <span class="ruby-identifier">opts</span> = {<span class="ruby-identifier">doc_service_name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Core&#39;</span>}&#x000A;&#x000A;    <span class="ruby-identifier">include_rpc_method</span> <span class="ruby-string">&#39;KRPC&#39;</span>, <span class="ruby-string">&#39;GetStatus&#39;</span>,&#x000A;                       <span class="ruby-identifier">return_type</span><span class="ruby-operator">:</span> <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:STATUS</span>),&#x000A;                       <span class="ruby-identifier">xmldoc</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;&lt;doc&gt;&lt;summary&gt;Gets a status message from the server containing information including the server’s version string and performance statistics.&lt;/summary&gt;&lt;/doc&gt;&quot;</span>,&#x000A;                       <span class="ruby-operator">**</span><span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-identifier">include_rpc_method</span> <span class="ruby-string">&#39;KRPC&#39;</span>, <span class="ruby-string">&#39;GetServices&#39;</span>,&#x000A;                       <span class="ruby-identifier">return_type</span><span class="ruby-operator">:</span> <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:SERVICES</span>),&#x000A;                       <span class="ruby-identifier">xmldoc</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;&lt;doc&gt;&lt;summary&gt;Returns information on all services, procedures, classes, properties etc. provided by the server.\nCan be used by client libraries to automatically create functionality such as stubs.&lt;/summary&gt;&lt;/doc&gt;&quot;</span>,&#x000A;                       <span class="ruby-operator">**</span><span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-identifier">include_rpc_method</span> <span class="ruby-string">&#39;KRPC&#39;</span>, <span class="ruby-string">&#39;AddStream&#39;</span>,&#x000A;                       <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> [<span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Parameter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;call&#39;</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:PROCEDURE_CALL</span>))],&#x000A;                       <span class="ruby-identifier">return_type</span><span class="ruby-operator">:</span> <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:STREAM</span>),&#x000A;                       <span class="ruby-identifier">xmldoc</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;&lt;doc&gt;&lt;summary&gt;Add a streaming request and return its identifier.&lt;/summary&gt;&lt;/doc&gt;&quot;</span>,&#x000A;                       <span class="ruby-operator">**</span><span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-identifier">include_rpc_method</span> <span class="ruby-string">&#39;KRPC&#39;</span>, <span class="ruby-string">&#39;RemoveStream&#39;</span>,&#x000A;                       <span class="ruby-identifier">params</span><span class="ruby-operator">:</span> [<span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Parameter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;id&#39;</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">:</span> <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:UINT64</span>))],&#x000A;                       <span class="ruby-identifier">xmldoc</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;&lt;doc&gt;&lt;summary&gt;Remove a streaming request.&lt;/summary&gt;&lt;/doc&gt;&quot;</span>,&#x000A;                       <span class="ruby-operator">**</span><span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-identifier">include_rpc_method</span> <span class="ruby-string">&#39;KRPC&#39;</span>, <span class="ruby-string">&#39;get_Clients&#39;</span>,&#x000A;                       <span class="ruby-identifier">return_type</span><span class="ruby-operator">:</span> <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:LIST</span>, <span class="ruby-identifier">types</span><span class="ruby-operator">:</span> [<span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:TUPLE</span>, <span class="ruby-identifier">types</span><span class="ruby-operator">:</span> [<span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:BYTES</span>), <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:STRING</span>), <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:STRING</span>)])]),&#x000A;                       <span class="ruby-identifier">xmldoc</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;&lt;doc&gt;&lt;summary&gt;A list of RPC clients that are currently connected to the server.\nEach entry in the list is a clients identifier, name and address.&lt;/summary&gt;&lt;/doc&gt;&quot;</span>,&#x000A;                       <span class="ruby-operator">**</span><span class="ruby-identifier">opts</span>&#x000A;    <span class="ruby-identifier">include_rpc_method</span> <span class="ruby-string">&#39;KRPC&#39;</span>, <span class="ruby-string">&#39;get_CurrentGameScene&#39;</span>,&#x000A;                       <span class="ruby-identifier">return_type</span><span class="ruby-operator">:</span> <span class="ruby-constant">PB</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">code</span><span class="ruby-operator">:</span> <span class="ruby-value">:ENUMERATION</span>, <span class="ruby-identifier">service</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;Core&#39;</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">:</span> <span class="ruby-string">&#39;GameScene&#39;</span>),&#x000A;                       <span class="ruby-identifier">xmldoc</span><span class="ruby-operator">:</span> <span class="ruby-string">&quot;&lt;doc&gt;&lt;summary&gt;Get the current game scene.&lt;/summary&gt;&lt;/doc&gt;&quot;</span>,&#x000A;                       <span class="ruby-operator">**</span><span class="ruby-identifier">opts</span>&#x000A;  <span class="ruby-keyword">end</span>&#x000A;<span class="ruby-keyword">end</span></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>
